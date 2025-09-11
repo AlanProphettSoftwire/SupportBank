@@ -2,23 +2,23 @@ import type { TransactionRecord } from "../types/transactionRecord";
 
 export class Account{
     account_name: string;
-    transactions_out: TransactionRecord[]
-    transactions_in: TransactionRecord[]
+    transactionsOut: TransactionRecord[]
+    transactionsIn: TransactionRecord[]
     balance: number|null;
 
     constructor(_account_name:string){
-        this.account_name = "";
-        this.transactions_out = [];
-        this.transactions_in = [];
+        this.account_name = _account_name;
+        this.transactionsOut = [];
+        this.transactionsIn = [];
         this.balance = null
     }
 
-    addTransactionIn = (transaction_record:TransactionRecord) => {
-        this.transactions_in.push(transaction_record);
+    addTransactionIn = (transactionRecord:TransactionRecord) => {
+        this.transactionsIn.push(transactionRecord);
     }
 
-    addTransactionOut = (transaction_record:TransactionRecord) => {
-        this.transactions_out.push(transaction_record);
+    addTransactionOut = (transactionRecord:TransactionRecord) => {
+        this.transactionsOut.push(transactionRecord);
     }
 
     getBalance = () =>{
@@ -26,11 +26,11 @@ export class Account{
 
         let accumulated_balance = 0;
 
-        this.transactions_in.forEach(record => {
+        this.transactionsIn.forEach(record => {
             accumulated_balance += record.Amount
         });
 
-        this.transactions_out.forEach(record => {
+        this.transactionsOut.forEach(record => {
             accumulated_balance -= record.Amount
         });
 
