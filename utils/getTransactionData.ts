@@ -1,4 +1,3 @@
-import { parse } from "csv-parse/sync";
 import { readFileSync } from "fs";
 import type { TransactionRecord } from "../types/transactionRecord.js";
 import { parse as dateParseFns } from "date-fns";
@@ -27,7 +26,7 @@ const setTransactionRecordsFromCsvRows = (
       From: row.From,
       To: row.To,
       Narrative: row.Narrative,
-      Amount: Number(row.Amount),
+      Amount: parseFloat(row.Amount),
     };
     transactionRecords.push(record);
   });
@@ -41,6 +40,7 @@ export const getTransactionData = (filePath: string): TransactionRecord[] => {
   const records = parse(fileContent, {
     delimiter: ",",
     columns: HEADERS,
+        from_line:2
   });
 
   setTransactionRecordsFromCsvRows(transactionRecords, records as CsvRow[]);
