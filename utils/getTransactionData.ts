@@ -15,7 +15,7 @@ interface CsvRow {
 function parseDate(dateStr: string): Date {
     const [day, month, year] = dateStr.split("/");
 
-    return new Date(Number(year), Number(month) - 1, Number(day));
+    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
 }
 
 const setTransactionRecordsFromCsvRows = (
