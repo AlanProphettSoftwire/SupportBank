@@ -1,5 +1,5 @@
-import { Account } from "./account"
-import type { TransactionRecord } from "../types/transactionRecord";
+import { Account } from "./account.js"
+import type { TransactionRecord } from "../types/transactionRecord.js";
 
 export class AccountManager{
     accounts:Map<string, Account>;
