@@ -1,4 +1,4 @@
-import type { TransactionRecord } from "../types/transactionRecord";
+import type { TransactionRecord } from "../types/transactionRecord.js";
 
 export class Account{
     account_name: string;
@@ -15,10 +15,12 @@ export class Account{
 
     addTransactionIn = (transactionRecord:TransactionRecord) => {
         this.transactionsIn.push(transactionRecord);
+        this.balance = null
     }
 
     addTransactionOut = (transactionRecord:TransactionRecord) => {
         this.transactionsOut.push(transactionRecord);
+        this.balance = null
     }
 
     getBalance = () =>{
@@ -27,11 +29,11 @@ export class Account{
         let accumulated_balance = 0;
 
         this.transactionsIn.forEach(record => {
-            accumulated_balance += record.Amount
+            accumulated_balance = accumulated_balance + record.Amount
         });
 
         this.transactionsOut.forEach(record => {
-            accumulated_balance -= record.Amount
+            accumulated_balance = accumulated_balance - record.Amount
         });
 
         this.balance = accumulated_balance
