@@ -12,7 +12,7 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "start": "tsc && node dist/index.js",
@@ -21,5 +21,9 @@
   "devDependencies": {
     "@types/node": "^24.3.1",
     "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "csv-parse": "^6.1.0",
+    "ts-node": "^10.9.2"
   }
 }
