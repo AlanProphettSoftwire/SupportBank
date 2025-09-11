@@ -1,8 +1,8 @@
 import { parse } from "csv-parse/sync";
-import {readFileSync} from 'fs';
+import { readFileSync } from 'fs';
 import type { TransactionRecord } from "../types/transactionRecord.d.ts"
 
-const HEADERS = ["Date","From","To","Narrative","Amount"]
+const HEADERS = ["Date", "From", "To", "Narrative", "Amount"]
 
 interface CsvRow {
     Date: string;
@@ -13,16 +13,16 @@ interface CsvRow {
 }
 
 function parseDate(dateStr: string): Date {
-  const [day, month, year] = dateStr.split("/");
+    const [day, month, year] = dateStr.split("/");
 
-  return new Date(Number(year), Number(month) - 1, Number(day)); 
+    return new Date(Number(year), Number(month) - 1, Number(day));
 }
 
 const setTransactionRecordsFromCsvRows = (
-        transactionRecords:TransactionRecord[] ,
-        csvRows:any
-    ) => {
-    
+    transactionRecords: TransactionRecord[],
+    csvRows: any
+) => {
+
     csvRows.forEach((e: CsvRow) => {
         const record: TransactionRecord = {
             Date: parseDate(e.Date),
@@ -37,8 +37,8 @@ const setTransactionRecordsFromCsvRows = (
 
 
 export const getTransactionData = (
-        filePath:string
-    ): TransactionRecord[]=> {
+    filePath: string
+): TransactionRecord[] => {
     let transactionRecords: TransactionRecord[] = []
 
     const fileContent = readFileSync(filePath, { encoding: 'utf-8' });
@@ -51,5 +51,4 @@ export const getTransactionData = (
     setTransactionRecordsFromCsvRows(transactionRecords, records);
 
     return transactionRecords;
-
 }
