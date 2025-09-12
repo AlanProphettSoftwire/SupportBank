@@ -1,14 +1,19 @@
 import { Account } from "./account.js"
 import type { TransactionRecord } from "../types/transactionRecord.js";
 
-export class AccountManager{
-    accounts:Map<string, Account>;
+export class AccountManager {
+    accounts: Map<string, Account>;
 
-    constructor(){
+    constructor() {
         this.accounts = new Map<string, Account>();
     }
 
-    getAccount = (account_name:string) : Account => {
+    isExistingAccount = (account_name: string): boolean => {
+        const existingAccount = this.accounts.get(account_name);
+        return existingAccount !== undefined
+    }
+
+    getAccount = (account_name: string): Account => {
         const existingAccount = this.accounts.get(account_name);
         if (existingAccount) return existingAccount
 
@@ -18,7 +23,7 @@ export class AccountManager{
         return newAccount
     }
 
-    add_transaction_record = (transaction_record:TransactionRecord) => {
+    add_transaction_record = (transaction_record: TransactionRecord) => {
         const from_account = this.getAccount(transaction_record.From)
         const to_account = this.getAccount(transaction_record.To)
 
@@ -26,7 +31,7 @@ export class AccountManager{
         to_account.addTransactionIn(transaction_record)
     }
 
-    getAccounts = ():Map<string, Account> => {
+    getAccounts = (): Map<string, Account> => {
         return this.accounts
     }
 }
