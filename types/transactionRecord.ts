@@ -3,5 +3,5 @@ export type TransactionRecord = {
   From: String;
   To: string;
   Narrative: string;
-  Amount: Number;
+  Amount: number;
 };
