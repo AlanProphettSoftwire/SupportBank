@@ -20,9 +20,8 @@ function parseDate(dateStr: string): Date {
 
 const setTransactionRecordsFromCsvRows = (
     transactionRecords: TransactionRecord[],
-    csvRows: any
+    csvRows: CsvRow[]
 ) => {
-
     csvRows.forEach((row: CsvRow) => {
         const record: TransactionRecord = {
             Date: parseDate(row.Date),
@@ -48,7 +47,7 @@ export const getTransactionData = (
         columns: HEADERS,
     });
 
-    setTransactionRecordsFromCsvRows(transactionRecords, records);
+    setTransactionRecordsFromCsvRows(transactionRecords, records as CsvRow[]);
 
     return transactionRecords;
 }
