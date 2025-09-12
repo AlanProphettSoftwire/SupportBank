@@ -46,7 +46,7 @@ export class Menu{
 
         if (is_account_exists){
             const selected_account = this.account_manager.getAccount(user_inputted_account_name)
-            const transactions = [...selected_account.transactions_in, ...selected_account.transactions_out]
+            const transactions = [...selected_account.transactionsIn, ...selected_account.transactionsOut]
             transactions.sort((a, b) => b.Date.getTime() - a.Date.getTime());
 
             console.log(`Transaction records for ${user_inputted_account_name}:`)
