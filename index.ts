@@ -1,1 +1,3 @@
-console.log("Hello, Support Bank!");
+import { getTransactionData } from "./utils/getTransactionData.js";
+
+const transaction_records = getTransactionData("./data/Transactions2014.csv");
