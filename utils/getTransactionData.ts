@@ -1,6 +1,7 @@
 import { parse } from "csv-parse/sync";
 import { readFileSync } from 'fs';
 import type { TransactionRecord } from "../types/transactionRecord.js"
+import { parse as dateParseFns } from 'date-fns'
 
 const HEADERS = ["Date", "From", "To", "Narrative", "Amount"]
 
@@ -13,9 +14,7 @@ interface CsvRow {
 }
 
 function parseDate(dateStr: string): Date {
-    const [day, month, year] = dateStr.split("/");
-
-    return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+    return dateParseFns(dateStr, 'd/M/y', new Date());
 }
 
 const setTransactionRecordsFromCsvRows = (
