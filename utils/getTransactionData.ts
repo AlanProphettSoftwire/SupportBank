@@ -1,6 +1,6 @@
 import { parse } from "csv-parse/sync";
 import { readFileSync } from 'fs';
-import type { TransactionRecord } from "../types/transactionRecord.d.ts"
+import type { TransactionRecord } from "../types/transactionRecord.js"
 
 const HEADERS = ["Date", "From", "To", "Narrative", "Amount"]
 
