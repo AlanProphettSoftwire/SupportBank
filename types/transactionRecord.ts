@@ -1,6 +1,6 @@
 export type TransactionRecord = {
   Date: Date;
-  From: String;
+  From: string;
   To: string;
   Narrative: string;
   Amount: number;
