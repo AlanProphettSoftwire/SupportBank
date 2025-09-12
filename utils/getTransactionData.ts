@@ -23,13 +23,13 @@ const setTransactionRecordsFromCsvRows = (
     csvRows: any
 ) => {
 
-    csvRows.forEach((e: CsvRow) => {
+    csvRows.forEach((row: CsvRow) => {
         const record: TransactionRecord = {
-            Date: parseDate(e.Date),
-            From: e.From,
-            To: e.To,
-            Narrative: e.Narrative,
-            Amount: Number(e.Amount)
+            Date: parseDate(row.Date),
+            From: row.From,
+            To: row.To,
+            Narrative: row.Narrative,
+            Amount: Number(row.Amount)
         };
         transactionRecords.push(record);
     });
