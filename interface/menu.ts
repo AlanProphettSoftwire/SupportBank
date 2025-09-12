@@ -51,12 +51,9 @@ export class Menu {
       const selected_account = this.account_manager.getAccount(
         user_inputted_account_name,
       );
-      const transactions = [
-        ...selected_account.transactionsIn,
-        ...selected_account.transactionsOut,
-      ];
-      transactions.sort((a, b) => b.Date.getTime() - a.Date.getTime());
 
+      const transactions = selected_account.getTransactionRecordsSortedByDate();
+      
       console.log(`Transaction records for ${user_inputted_account_name}:`);
       if (transactions.length === 0) {
         console.log("No Records");

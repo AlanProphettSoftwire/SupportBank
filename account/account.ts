@@ -40,4 +40,11 @@ export class Account {
 
     return accumulated_balance;
   };
+
+  getTransactionRecordsSortedByDate = (): TransactionRecord[] => {
+    const transactions = [...this.transactionsIn, ...this.transactionsOut];
+    transactions.sort((a, b) => b.Date.getTime() - a.Date.getTime());
+
+    return transactions;
+  };
 }
