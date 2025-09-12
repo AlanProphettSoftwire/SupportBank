@@ -1,4 +1,4 @@
-import type { TransactionRecord } from "../types/transactionRecord.js";
+import type { TransactionRecord } from "../types/transactionRecord";
 
 export class Account {
   account_name: string;

@@ -1,4 +1,4 @@
-import { Menu } from "./interface/menu.js";
+import { Menu } from "./interface/menu";
 
 const menu = new Menu();
 menu.runLoop();

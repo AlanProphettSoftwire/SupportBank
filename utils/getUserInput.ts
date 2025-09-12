@@ -1,7 +1,7 @@
-import * as readline from "readline/promises";
+import * as readline from "readline";
 
 export async function getUserInput(acceptedRegex: RegExp) {
-  const rl = readline.createInterface({
+  const rl = readline.promises.createInterface({
     input: process.stdin,
     output: process.stdout,
   });

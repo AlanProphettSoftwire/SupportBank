@@ -1,7 +1,7 @@
-import { AccountManager } from "../account/accountManager.js";
-import { getTransactionData } from "../utils/getTransactionData.js";
-import { convertPenceToPounds } from "../utils/penceConverter.js";
-import { getUserInput } from "../utils/getUserInput.js";
+import { AccountManager } from "../account/accountManager";
+import { getTransactionData } from "../utils/getTransactionData";
+import { convertPenceToPounds } from "../utils/penceConverter";
+import { getUserInput } from "../utils/getUserInput";
 
 const MAIN_MENU_TEXT = `
 ######### SUPPORT BANK MENU #########

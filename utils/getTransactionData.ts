@@ -1,8 +1,8 @@
 import { readFileSync } from "fs";
 import { parse } from "csv-parse/sync";
-import type { TransactionRecord } from "../types/transactionRecord.js";
+import type { TransactionRecord } from "../types/transactionRecord";
 import { parse as dateParseFns } from "date-fns";
-import { convertPoundsToPence } from "./penceConverter.js";
+import { convertPoundsToPence } from "./penceConverter";
 
 const HEADERS = ["Date", "From", "To", "Narrative", "Amount"];
 
