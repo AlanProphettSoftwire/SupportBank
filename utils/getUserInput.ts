@@ -1,21 +1,20 @@
-import * as readline from 'readline/promises';
+import * as readline from "readline/promises";
 
 export async function getUserInput(acceptedRegex: RegExp) {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 
-    let answer = null
-    do{
-        if (answer !== null){
-            console.log("Invalid response")
-        }
-        answer = await rl.question("Enter response: ");
+  let answer = null;
+  do {
+    if (answer !== null) {
+      console.log("Invalid response");
     }
-    while(!new RegExp(acceptedRegex).test(answer))
+    answer = await rl.question("Enter response: ");
+  } while (!new RegExp(acceptedRegex).test(answer));
 
-    rl.close();
+  rl.close();
 
-    return answer;
+  return answer;
 }

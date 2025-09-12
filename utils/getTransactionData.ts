@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import { parse } from "csv-parse/sync";
 import type { TransactionRecord } from "../types/transactionRecord.js";
 import { parse as dateParseFns } from "date-fns";
-import { convertPoundsToPence } from './penceConverter.js';
+import { convertPoundsToPence } from "./penceConverter.js";
 
 const HEADERS = ["Date", "From", "To", "Narrative", "Amount"];
 
@@ -22,15 +22,14 @@ const setTransactionRecordsFromCsvRows = (
   transactionRecords: TransactionRecord[],
   csvRows: CsvRow[],
 ) => {
-  
   csvRows.forEach((row: CsvRow) => {
-    const amount_in_pence = convertPoundsToPence(parseFloat(row.Amount))
+    const amount_in_pence = convertPoundsToPence(parseFloat(row.Amount));
     const record: TransactionRecord = {
       Date: parseDate(row.Date),
       From: row.From,
       To: row.To,
       Narrative: row.Narrative,
-      Amount: amount_in_pence
+      Amount: amount_in_pence,
     };
     transactionRecords.push(record);
   });
@@ -44,7 +43,7 @@ export const getTransactionData = (filePath: string): TransactionRecord[] => {
   const records = parse(fileContent, {
     delimiter: ",",
     columns: HEADERS,
-        from_line:2
+    from_line: 2,
   });
 
   setTransactionRecordsFromCsvRows(transactionRecords, records as CsvRow[]);
