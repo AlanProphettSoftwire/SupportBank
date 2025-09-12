@@ -23,13 +23,18 @@ export class Menu{
         this.#load_transaction_records()
     }
 
+    #getAmountString(current_balance_in_pounds:number){
+        return `${current_balance_in_pounds<0?"-":""}£${Math.abs(current_balance_in_pounds).toFixed(2)}`
+    }
+
     print_all_accounts_and_balances = () => {
         const accounts = this.account_manager.getAccounts()
 
         accounts.forEach((_accountInstance, _accountName) => {
             const current_account_balance_in_pence = _accountInstance.getBalance()
             const current_balance_in_pounds = convertPenceToPounds(current_account_balance_in_pence)
-            console.log(`Account: ${_accountName} - Balance £${current_balance_in_pounds.toFixed(2)}`)
+            const amount_string = this.#getAmountString(current_balance_in_pounds)
+            console.log(`Account: ${_accountName} - Balance ${amount_string}`)
         })
     }
 
@@ -44,15 +49,17 @@ export class Menu{
             const transactions = [...selected_account.transactions_in, ...selected_account.transactions_out]
             transactions.sort((a, b) => b.Date.getTime() - a.Date.getTime());
 
-            console.log(`Transaction records for ${selected_account.account_name}:`)
+            console.log(`Transaction records for ${user_inputted_account_name}:`)
             if (transactions.length === 0){
                 console.log("No Records")
             }
             else{
+                console.log("Date | from | To | Narrative | Amount")
                 transactions.forEach(transaction_record => {
                     const date_in_string_format = transaction_record.Date.toDateString()
                     const current_balance_in_pounds = convertPenceToPounds(transaction_record.Amount) 
-                    console.log(`${date_in_string_format} | ${transaction_record.From} |  ${transaction_record.To} | ${transaction_record.Narrative} | £${current_balance_in_pounds.toFixed(2)}` )
+                    const amount_string = this.#getAmountString(current_balance_in_pounds)
+                    console.log(`${date_in_string_format} | ${transaction_record.From} |  ${transaction_record.To} | ${transaction_record.Narrative} | ${amount_string}` )
                 });
             }
         }
