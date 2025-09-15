@@ -83,8 +83,11 @@ export class Menu {
   };
 
   #loadTransactionRecords = () => {
+    // const transaction_records = getTransactionData(
+    //   "./data/Transactions2014.csv",
+    // );
     const transactionRecords = getTransactionData(
-      "./data/Transactions2014.csv",
+      "./data/DodgyTransactions2015.csv",
     );
     transactionRecords.forEach((record) => {
       this.accountManager.addTransactionRecord(record);
