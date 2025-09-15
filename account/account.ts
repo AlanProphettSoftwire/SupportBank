@@ -1,13 +1,13 @@
 import type { TransactionRecord } from "../types/transactionRecord";
 
 export class Account {
-  account_name: string;
+  accountName: string;
   transactionsOut: TransactionRecord[];
   transactionsIn: TransactionRecord[];
   balance: number | null;
 
-  constructor(_account_name: string) {
-    this.account_name = _account_name;
+  constructor(_accountName: string) {
+    this.accountName = _accountName;
     this.transactionsOut = [];
     this.transactionsIn = [];
     this.balance = null;

@@ -8,18 +8,18 @@ export class AccountManager {
     this.accounts = new Map<string, Account>();
   }
 
-  isExistingAccount = (account_name: string): boolean => {
-    const existingAccount = this.accounts.get(account_name);
+  isExistingAccount = (accountName: string): boolean => {
+    const existingAccount = this.accounts.get(accountName);
     return existingAccount !== undefined;
   };
 
-  getAccount = (account_name: string): Account => {
-    const existingAccount = this.accounts.get(account_name);
+  getAccount = (accountName: string): Account => {
+    const existingAccount = this.accounts.get(accountName);
     if (existingAccount) return existingAccount;
 
     // account does not exist therefore make a new account
-    const newAccount = new Account(account_name);
-    this.accounts.set(account_name, newAccount);
+    const newAccount = new Account(accountName);
+    this.accounts.set(accountName, newAccount);
     return newAccount;
   };
 

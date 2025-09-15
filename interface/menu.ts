@@ -41,20 +41,20 @@ export class Menu {
 
   print_account_transactions = async () => {
     console.log("Enter the account name you wish to view the transactions of:");
-    const user_inputted_account_name = await getUserInput(ACCOUNT_NAME_REGEX);
+    const userInputtedAccountName = await getUserInput(ACCOUNT_NAME_REGEX);
 
     const is_account_exists = this.account_manager.isExistingAccount(
-      user_inputted_account_name,
+      userInputtedAccountName,
     );
 
     if (is_account_exists) {
       const selected_account = this.account_manager.getAccount(
-        user_inputted_account_name,
+        userInputtedAccountName,
       );
 
       const transactions = selected_account.getTransactionRecordsSortedByDate();
       
-      console.log(`Transaction records for ${user_inputted_account_name}:`);
+      console.log(`Transaction records for ${userInputtedAccountName}:`);
       if (transactions.length === 0) {
         console.log("No Records");
       } else {
@@ -73,7 +73,7 @@ export class Menu {
         });
       }
     } else {
-      console.log(`Account '${user_inputted_account_name}' does not exist.`);
+      console.log(`Account '${userInputtedAccountName}' does not exist.`);
     }
   };
 
