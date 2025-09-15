@@ -23,13 +23,13 @@ const setTransactionRecordsFromCsvRows = (
   csvRows: CsvRow[],
 ) => {
   csvRows.forEach((row: CsvRow) => {
-    const amount_in_pence = convertPoundsToPence(parseFloat(row.Amount));
+    const amountInPence = convertPoundsToPence(parseFloat(row.Amount));
     const record: TransactionRecord = {
       Date: parseDate(row.Date),
       From: row.From,
       To: row.To,
       Narrative: row.Narrative,
-      Amount: amount_in_pence,
+      Amount: amountInPence,
     };
     transactionRecords.push(record);
   });

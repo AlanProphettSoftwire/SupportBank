@@ -15,60 +15,60 @@ const MAIN_MENU_INPUT_REGEX = /^(1|2|3)$/;
 const ACCOUNT_NAME_REGEX = /^[A-Za-z ]+$/;
 
 export class Menu {
-  account_manager: AccountManager;
+  accountManager: AccountManager;
 
   constructor() {
-    this.account_manager = new AccountManager();
-    this.#load_transaction_records();
+    this.accountManager = new AccountManager();
+    this.#loadTransactionRecords();
   }
 
-  #getAmountString(current_balance_in_pounds: number) {
-    return `${current_balance_in_pounds < 0 ? "-" : ""}£${Math.abs(current_balance_in_pounds).toFixed(2)}`;
+  #getAmountString(currentBalanceInPounds: number) {
+    return `${currentBalanceInPounds < 0 ? "-" : ""}£${Math.abs(currentBalanceInPounds).toFixed(2)}`;
   }
 
-  print_all_accounts_and_balances = () => {
-    const accounts = this.account_manager.getAccounts();
+  printAllAccountsAndBalances = () => {
+    const accounts = this.accountManager.getAccounts();
 
     accounts.forEach((_accountInstance, _accountName) => {
-      const current_account_balance_in_pence = _accountInstance.getBalance();
-      const current_balance_in_pounds = convertPenceToPounds(
-        current_account_balance_in_pence,
+      const currentAccountBalanceInPence = _accountInstance.getBalance();
+      const currentBalanceInPounds = convertPenceToPounds(
+        currentAccountBalanceInPence,
       );
-      const amount_string = this.#getAmountString(current_balance_in_pounds);
-      console.log(`Account: ${_accountName} - Balance ${amount_string}`);
+      const amountString = this.#getAmountString(currentBalanceInPounds);
+      console.log(`Account: ${_accountName} - Balance ${amountString}`);
     });
   };
 
-  print_account_transactions = async () => {
+  printAccountTransactions = async () => {
     console.log("Enter the account name you wish to view the transactions of:");
     const userInputtedAccountName = await getUserInput(ACCOUNT_NAME_REGEX);
 
-    const is_account_exists = this.account_manager.isExistingAccount(
+    const isAccountExists = this.accountManager.isExistingAccount(
       userInputtedAccountName,
     );
 
-    if (is_account_exists) {
-      const selected_account = this.account_manager.getAccount(
+    if (isAccountExists) {
+      const selectedAccount = this.accountManager.getAccount(
         userInputtedAccountName,
       );
 
-      const transactions = selected_account.getTransactionRecordsSortedByDate();
+      const transactions = selectedAccount.getTransactionRecordsSortedByDate();
       
       console.log(`Transaction records for ${userInputtedAccountName}:`);
       if (transactions.length === 0) {
         console.log("No Records");
       } else {
         console.log("Date | from | To | Narrative | Amount");
-        transactions.forEach((transaction_record) => {
-          const date_in_string_format = transaction_record.Date.toDateString();
-          const current_balance_in_pounds = convertPenceToPounds(
-            transaction_record.Amount,
+        transactions.forEach((transactionRecord) => {
+          const dateInStringFormat = transactionRecord.Date.toDateString();
+          const currentBalanceInPounds = convertPenceToPounds(
+            transactionRecord.Amount,
           );
-          const amount_string = this.#getAmountString(
-            current_balance_in_pounds,
+          const amountString = this.#getAmountString(
+            currentBalanceInPounds,
           );
           console.log(
-            `${date_in_string_format} | ${transaction_record.From} |  ${transaction_record.To} | ${transaction_record.Narrative} | ${amount_string}`,
+            `${dateInStringFormat} | ${transactionRecord.From} |  ${transactionRecord.To} | ${transactionRecord.Narrative} | ${amountString}`,
           );
         });
       }
@@ -77,25 +77,25 @@ export class Menu {
     }
   };
 
-  #load_transaction_records = () => {
-    const transaction_records = getTransactionData(
+  #loadTransactionRecords = () => {
+    const transactionRecords = getTransactionData(
       "./data/Transactions2014.csv",
     );
-    transaction_records.forEach((record) => {
-      this.account_manager.add_transaction_record(record);
+    transactionRecords.forEach((record) => {
+      this.accountManager.addTransactionRecord(record);
     });
   };
 
   runLoop = async () => {
     while (true) {
       console.log(MAIN_MENU_TEXT);
-      const user_input = await getUserInput(MAIN_MENU_INPUT_REGEX);
-      switch (user_input) {
+      const userInput = await getUserInput(MAIN_MENU_INPUT_REGEX);
+      switch (userInput) {
         case "1":
-          this.print_all_accounts_and_balances();
+          this.printAllAccountsAndBalances();
           break;
         case "2":
-          await this.print_account_transactions();
+          await this.printAccountTransactions();
           break;
         case "3":
           console.log("Exiting SupportBank...");

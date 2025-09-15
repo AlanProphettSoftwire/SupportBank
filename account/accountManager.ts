@@ -23,12 +23,12 @@ export class AccountManager {
     return newAccount;
   };
 
-  add_transaction_record = (transactionRecord: TransactionRecord) => {
-    const from_account = this.getAccount(transactionRecord.From);
-    const to_account = this.getAccount(transactionRecord.To);
+  addTransactionRecord = (transactionRecord: TransactionRecord) => {
+    const fromAccount = this.getAccount(transactionRecord.From);
+    const toAccount = this.getAccount(transactionRecord.To);
 
-    from_account.addTransactionOut(transactionRecord);
-    to_account.addTransactionIn(transactionRecord);
+    fromAccount.addTransactionOut(transactionRecord);
+    toAccount.addTransactionIn(transactionRecord);
   };
 
   getAccounts = (): Map<string, Account> => {

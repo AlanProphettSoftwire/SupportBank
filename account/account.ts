@@ -26,19 +26,19 @@ export class Account {
   getBalance = () => {
     if (this.balance !== null) return this.balance;
 
-    let accumulated_balance = 0;
+    let accumulatedBalance = 0;
 
     this.transactionsIn.forEach((record) => {
-      accumulated_balance = accumulated_balance + record.Amount;
+      accumulatedBalance = accumulatedBalance + record.Amount;
     });
 
     this.transactionsOut.forEach((record) => {
-      accumulated_balance = accumulated_balance - record.Amount;
+      accumulatedBalance = accumulatedBalance - record.Amount;
     });
 
-    this.balance = accumulated_balance;
+    this.balance = accumulatedBalance;
 
-    return accumulated_balance;
+    return accumulatedBalance;
   };
 
   getTransactionRecordsSortedByDate = (): TransactionRecord[] => {
