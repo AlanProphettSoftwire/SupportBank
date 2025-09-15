@@ -1,3 +1,4 @@
-import { getTransactionData } from "./utils/getTransactionData.js";
+import { Menu } from "./interface/menu";
 
-const transaction_records = getTransactionData("./data/Transactions2014.csv");
+const menu = new Menu();
+menu.runLoop();
