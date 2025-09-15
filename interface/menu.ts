@@ -1,5 +1,5 @@
 import { AccountManager } from "../account/accountManager";
-import { getTransactionData } from "../utils/getTransactionData";
+import { getTransactionData } from "../import/getTransactionDataFromCSV";
 import { convertPenceToPounds } from "../utils/penceConverter";
 import { getUserInput } from "../utils/getUserInput";
 import type { TransactionRecord } from "../types/transactionRecord";
