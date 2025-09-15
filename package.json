@@ -20,6 +20,7 @@
     "format": "prettier . --write"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/node": "^24.3.1",
     "esbuild": "0.25.9",
     "prettier": "3.6.2",
@@ -28,6 +29,7 @@
   "dependencies": {
     "csv-parse": "^6.1.0",
     "date-fns": "^4.1.0",
+    "lodash": "^4.17.21",
     "ts-node": "^10.9.2"
   }
 }

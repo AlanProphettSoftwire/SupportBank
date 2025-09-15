@@ -1,5 +1,6 @@
 import { Account } from "./account";
 import type { TransactionRecord } from "../types/transactionRecord";
+import lodash from "lodash";
 
 export class AccountManager {
   accounts: Map<string, Account>;
@@ -9,8 +10,7 @@ export class AccountManager {
   }
 
   isExistingAccount = (accountName: string): boolean => {
-    const existingAccount = this.accounts.get(accountName);
-    return existingAccount !== undefined;
+    return lodash.some([...this.accounts.keys()], (name:string) => name === accountName);
   };
 
   getAccount = (accountName: string): Account => {
