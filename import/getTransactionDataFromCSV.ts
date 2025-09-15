@@ -15,7 +15,8 @@ export const getTransactionData = (filePath: string): TransactionRecord[] => {
     from_line: 2,
   });
 
-  let transactionRecords: TransactionRecord[] = getParsedObjectsToTransactionRecords(records as FileDataRecord[]);
+  let transactionRecords: TransactionRecord[] =
+    getParsedObjectsToTransactionRecords(records as FileDataRecord[]);
 
   return transactionRecords;
 };
