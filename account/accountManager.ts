@@ -29,8 +29,4 @@ export class AccountManager {
     fromAccount.addTransactionOut(transactionRecord);
     toAccount.addTransactionIn(transactionRecord);
   };
-
-  getAccounts = (): Map<string, Account> => {
-    return this.accounts;
-  };
 }

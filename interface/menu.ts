@@ -27,7 +27,7 @@ export class Menu {
   }
 
   printAllAccountsAndBalances = () => {
-    const accounts = this.accountManager.getAccounts();
+    const accounts = this.accountManager.accounts;
 
     accounts.forEach((_accountInstance, _accountName) => {
       const currentAccountBalanceInPence = _accountInstance.getBalance();
