@@ -12,10 +12,10 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "module",
+  "type": "commonjs",
   "main": "index.ts",
   "scripts": {
-    "start": "tsc && esbuild index.ts --bundle --format=esm --platform=node --outfile=dist/bundle.js && node dist/bundle.js",
+    "start": "tsc && esbuild index.ts --bundle --format=cjs --platform=node --outfile=dist/bundle.js && node dist/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier . --write"
   },
