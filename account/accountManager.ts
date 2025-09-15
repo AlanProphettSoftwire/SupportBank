@@ -10,7 +10,10 @@ export class AccountManager {
   }
 
   isExistingAccount = (accountName: string): boolean => {
-    return lodash.some([...this.accounts.keys()], (name:string) => name === accountName);
+    return lodash.some(
+      [...this.accounts.keys()],
+      (name: string) => name === accountName,
+    );
   };
 
   getOrCreateAccount = (accountName: string): Account => {

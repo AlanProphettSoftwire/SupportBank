@@ -2,6 +2,7 @@ import { AccountManager } from "../account/accountManager";
 import { getTransactionData } from "../utils/getTransactionData";
 import { convertPenceToPounds } from "../utils/penceConverter";
 import { getUserInput } from "../utils/getUserInput";
+import type { TransactionRecord } from "../types/transactionRecord";
 
 const MAIN_MENU_TEXT = `
 ######### SUPPORT BANK MENU #########
@@ -39,6 +40,20 @@ export class Menu {
     });
   };
 
+  printTransactionTable = (transactions:TransactionRecord[]) => {
+    console.log("Date | from | To | Narrative | Amount");
+    transactions.forEach((transactionRecord) => {
+      const dateInStringFormat = transactionRecord.Date.toDateString();
+      const currentBalanceInPounds = convertPenceToPounds(
+        transactionRecord.Amount,
+      );
+      const amountString = this.#getAmountString(currentBalanceInPounds);
+      console.log(
+        `${dateInStringFormat} | ${transactionRecord.From} |  ${transactionRecord.To} | ${transactionRecord.Narrative} | ${amountString}`,
+      );
+    });
+  }
+
   printAccountTransactions = async () => {
     console.log("Enter the account name you wish to view the transactions of:");
     const userInputtedAccountName = await getUserInput(ACCOUNT_NAME_REGEX);
@@ -47,34 +62,24 @@ export class Menu {
       userInputtedAccountName,
     );
 
-    if (isAccountExists) {
-      const selectedAccount = this.accountManager.getOrCreateAccount(
-        userInputtedAccountName,
-      );
-
-      const transactions = selectedAccount.getTransactionRecordsSortedByDate();
-      
-      console.log(`Transaction records for ${userInputtedAccountName}:`);
-      if (transactions.length === 0) {
-        console.log("No Records");
-      } else {
-        console.log("Date | from | To | Narrative | Amount");
-        transactions.forEach((transactionRecord) => {
-          const dateInStringFormat = transactionRecord.Date.toDateString();
-          const currentBalanceInPounds = convertPenceToPounds(
-            transactionRecord.Amount,
-          );
-          const amountString = this.#getAmountString(
-            currentBalanceInPounds,
-          );
-          console.log(
-            `${dateInStringFormat} | ${transactionRecord.From} |  ${transactionRecord.To} | ${transactionRecord.Narrative} | ${amountString}`,
-          );
-        });
-      }
-    } else {
+    if (!isAccountExists) {
       console.log(`Account '${userInputtedAccountName}' does not exist.`);
+      return;
     }
+
+    const selectedAccount = this.accountManager.getOrCreateAccount(
+      userInputtedAccountName,
+    );
+
+    const transactions = selectedAccount.getTransactionRecordsSortedByDate();
+
+    console.log(`Transaction records for ${userInputtedAccountName}:`);
+    if (transactions.length === 0) {
+      console.log("No Records");
+      return;
+    }
+
+    this.printTransactionTable(transactions);
   };
 
   #loadTransactionRecords = () => {
