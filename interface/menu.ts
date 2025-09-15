@@ -48,7 +48,7 @@ export class Menu {
     );
 
     if (isAccountExists) {
-      const selectedAccount = this.accountManager.getAccount(
+      const selectedAccount = this.accountManager.getOrCreateAccount(
         userInputtedAccountName,
       );
 

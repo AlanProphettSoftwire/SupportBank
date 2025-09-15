@@ -13,19 +13,18 @@ export class AccountManager {
     return lodash.some([...this.accounts.keys()], (name:string) => name === accountName);
   };
 
-  getAccount = (accountName: string): Account => {
+  getOrCreateAccount = (accountName: string): Account => {
     const existingAccount = this.accounts.get(accountName);
     if (existingAccount) return existingAccount;
 
-    // account does not exist therefore make a new account
     const newAccount = new Account(accountName);
     this.accounts.set(accountName, newAccount);
     return newAccount;
   };
 
   addTransactionRecord = (transactionRecord: TransactionRecord) => {
-    const fromAccount = this.getAccount(transactionRecord.From);
-    const toAccount = this.getAccount(transactionRecord.To);
+    const fromAccount = this.getOrCreateAccount(transactionRecord.From);
+    const toAccount = this.getOrCreateAccount(transactionRecord.To);
 
     fromAccount.addTransactionOut(transactionRecord);
     toAccount.addTransactionIn(transactionRecord);
