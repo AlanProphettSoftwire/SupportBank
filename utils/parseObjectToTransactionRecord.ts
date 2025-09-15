@@ -89,10 +89,12 @@ export function getParsedObjectsToTransactionRecords(
       continue;
     }
     const parsedRecord = parseDataRecordToTransactionRecords(row, i);
-    if (parsedRecord != null) {
-      parsedDataRecords.push(parsedRecord);
+    if (parsedRecord === null) {
       isAllValid = false;
+      continue;
     }
+    parsedDataRecords.push(parsedRecord);
+
   }
 
   if (!isAllValid) {

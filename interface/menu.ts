@@ -83,7 +83,7 @@ export class Menu {
   };
 
   #loadTransactionRecords = () => {
-    // const transaction_records = getTransactionData(
+    // const transactionRecords = getTransactionData(
     //   "./data/Transactions2014.csv",
     // );
     const transactionRecords = getTransactionData(
