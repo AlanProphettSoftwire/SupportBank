@@ -46,22 +46,22 @@ function parseDate(dateStr: string): Date {
 }
 
 function parseDataRecordToTransactionRecords(
-  Record: FileDataRecord,
+  record: FileDataRecord,
   lineIndexNumber: number,
 ): TransactionRecord | null {
-  const parsedDate = parseDate(Record.Date);
-  const amountInPence = convertPoundsToPence(parseFloat(Record.Amount));
+  const parsedDate = parseDate(record.Date);
+  const amountInPence = convertPoundsToPence(parseFloat(record.Amount));
 
   const newTransactionRecord: TransactionRecord = {
     Date: parsedDate,
-    From: Record.From,
-    To: Record.To,
-    Narrative: Record.Narrative,
+    From: record.From,
+    To: record.To,
+    Narrative: record.Narrative,
     Amount: amountInPence,
   };
 
   const warnings = getTransactionRecordValidityWarnings(
-    Record,
+    record,
     newTransactionRecord,
   );
   if (warnings.length === 0) return newTransactionRecord;
