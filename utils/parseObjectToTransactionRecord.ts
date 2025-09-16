@@ -1,6 +1,6 @@
 import type { TransactionRecord } from "../types/transactionRecord";
 import type { FileDataRecord } from "../types/fileDataRecord";
-import { parse as dateParseFns, isValid as isValidDateFns } from "date-fns";
+import * as datefns from "date-fns"
 import { convertPoundsToPence, convertPenceToPounds } from "./penceConverter";
 import { getLogger } from "./logger";
 
@@ -13,7 +13,7 @@ function get_TransactionRecord_validity_warnings(
 ): string[] {
   const warningMessages: string[] = [];
 
-  if (!isValidDateFns(transactionRecord.Date)) {
+  if (!datefns.isValid(transactionRecord.Date)) {
     warningMessages.push(
       `Invalid Date: ${transactionRecord.Date} is not valid.`,
     );
@@ -42,7 +42,7 @@ function get_TransactionRecord_validity_warnings(
 }
 
 function parseDate(dateStr: string): Date {
-  return dateParseFns(dateStr, "d/M/y", new Date());
+  return datefns.parse(dateStr, "d/M/y", new Date());
 }
 
 function parseDataRecordToTransactionRecords(
