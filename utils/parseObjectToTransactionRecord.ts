@@ -2,9 +2,9 @@ import type { TransactionRecord } from "../types/transactionRecord";
 import type { FileDataRecord } from "../types/fileDataRecord";
 import { parse as dateParseFns, isValid as isValidDateFns } from "date-fns";
 import { convertPoundsToPence, convertPenceToPounds } from "./penceConverter";
-import setUpLogger from "./setUpLogger";
+import { getLogger } from "./logger";
 
-const logger = setUpLogger.getLogger("parseObjectToTransactionRecord");
+const logger = getLogger("parseObjectToTransactionRecord");
 logger.level = "debug";
 
 function get_TransactionRecord_validity_warnings(

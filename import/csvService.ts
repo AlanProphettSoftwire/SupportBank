@@ -6,7 +6,7 @@ import { getParsedObjectsToTransactionRecords } from "../utils/parseObjectToTran
 
 const HEADERS = ["Date", "From", "To", "Narrative", "Amount"];
 
-export const getTransactionData = (filePath: string): TransactionRecord[] => {
+export const csvService = (filePath: string): TransactionRecord[] => {
   const fileContent = readFileSync(filePath, { encoding: "utf-8" });
 
   const records = parse(fileContent, {
