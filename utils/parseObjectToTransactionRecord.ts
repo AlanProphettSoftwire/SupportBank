@@ -7,8 +7,8 @@ import { getLogger } from "./logger";
 const logger = getLogger("parseObjectToTransactionRecord");
 logger.level = "debug";
 
-function get_TransactionRecord_validity_warnings(
-  original_record: FileDataRecord,
+function getTransactionRecordValidityWarnings(
+  originalRecord: FileDataRecord,
   transactionRecord: TransactionRecord,
 ): string[] {
   const warningMessages: string[] = [];
@@ -33,7 +33,7 @@ function get_TransactionRecord_validity_warnings(
 
   if (
     convertPenceToPounds(transactionRecord.Amount).toString() !==
-    original_record.Amount.trim()
+    originalRecord.Amount.trim()
   ) {
     warningMessages.push(`Amount - There was a error parsing the amount`);
   }
@@ -47,26 +47,26 @@ function parseDate(dateStr: string): Date {
 
 function parseDataRecordToTransactionRecords(
   Record: FileDataRecord,
-  line_index_number: number,
+  lineIndexNumber: number,
 ): TransactionRecord | null {
   const parsedDate = parseDate(Record.Date);
-  const amount_in_pence = convertPoundsToPence(parseFloat(Record.Amount));
+  const amountInPence = convertPoundsToPence(parseFloat(Record.Amount));
 
   const newTransactionRecord: TransactionRecord = {
     Date: parsedDate,
     From: Record.From,
     To: Record.To,
     Narrative: Record.Narrative,
-    Amount: amount_in_pence,
+    Amount: amountInPence,
   };
 
-  const warnings = get_TransactionRecord_validity_warnings(
+  const warnings = getTransactionRecordValidityWarnings(
     Record,
     newTransactionRecord,
   );
   if (warnings.length === 0) return newTransactionRecord;
 
-  logger.warn(`Warnings present on line ${line_index_number + 1}`);
+  logger.warn(`Warnings present on line ${lineIndexNumber + 1}`);
   warnings.forEach((warning) => {
     logger.warn(warning);
   });
