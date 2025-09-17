@@ -1,5 +1,5 @@
 import { AccountManager } from "../account/accountManager";
-import { getTransactionData } from "../utils/getTransactionData";
+import { csvService } from "../import/csvService";
 import { convertPenceToPounds } from "../utils/penceConverter";
 import { getUserInput } from "../utils/getUserInput";
 import type { TransactionRecord } from "../types/transactionRecord";
@@ -83,8 +83,11 @@ export class Menu {
   };
 
   #loadTransactionRecords = () => {
-    const transactionRecords = getTransactionData(
-      "./data/Transactions2014.csv",
+    // const transactionRecords = getTransactionData(
+    //   "./data/Transactions2014.csv",
+    // );
+    const transactionRecords = csvService(
+      "./data/DodgyTransactions2015.csv",
     );
     transactionRecords.forEach((record) => {
       this.accountManager.addTransactionRecord(record);
