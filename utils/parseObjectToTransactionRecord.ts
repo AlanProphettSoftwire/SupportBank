@@ -7,8 +7,9 @@ import { getLogger } from "./logger";
 const logger = getLogger("parseObjectToTransactionRecord");
 logger.level = "debug";
 
+const EXPECTED_MONETARY_REGEX = /^\d+\.\d\d$/;
+
 function getTransactionRecordValidityWarnings(
-  originalRecord: FileDataRecord,
   transactionRecord: TransactionRecord,
 ): string[] {
   const warningMessages: string[] = [];
@@ -31,13 +32,6 @@ function getTransactionRecordValidityWarnings(
     warningMessages.push(`Narrative - Field must not be empty`);
   }
 
-  if (
-    convertPenceToPounds(transactionRecord.Amount).toString() !==
-    originalRecord.Amount.trim()
-  ) {
-    warningMessages.push(`Amount - There was a error parsing the amount`);
-  }
-
   return warningMessages;
 }
 
@@ -48,8 +42,9 @@ function parseDate(dateStr: string): Date {
 function parseDataRecordToTransactionRecords(
   record: FileDataRecord,
   lineIndexNumber: number,
-): TransactionRecord | null {
+): TransactionRecord {
   const parsedDate = parseDate(record.Date);
+
   const amountInPence = convertPoundsToPence(parseFloat(record.Amount));
 
   const newTransactionRecord: TransactionRecord = {
@@ -61,9 +56,13 @@ function parseDataRecordToTransactionRecords(
   };
 
   const warnings = getTransactionRecordValidityWarnings(
-    record,
     newTransactionRecord,
   );
+
+  if(EXPECTED_MONETARY_REGEX.test(record.Amount) === false){
+    warnings.push(`Amount - ${record.Amount} is not in the expected format of a decimal number with two decimal places (e.g., 123.45)`);
+  }
+
   if (warnings.length === 0) return newTransactionRecord;
 
   logger.warn(`Warnings present on line ${lineIndexNumber + 1}`);
@@ -71,7 +70,7 @@ function parseDataRecordToTransactionRecords(
     logger.warn(warning);
   });
 
-  return null;
+  throw new Error("Invalid record found");
 }
 
 export function getParsedObjectsToTransactionRecords(
@@ -88,13 +87,14 @@ export function getParsedObjectsToTransactionRecords(
       isAllValid = false;
       continue;
     }
-    const parsedRecord = parseDataRecordToTransactionRecords(row, i);
-    if (parsedRecord === null) {
+    try{
+      const parsedRecord = parseDataRecordToTransactionRecords(row, i);
+      parsedDataRecords.push(parsedRecord);
+    }
+    catch (e){
       isAllValid = false;
       continue;
     }
-    parsedDataRecords.push(parsedRecord);
-
   }
 
   if (!isAllValid) {
